@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset ="utf-8">
+        <title>Reviews</title>
+        <link rel ="stylesheet" href = "../CSS/styles.css">
+
+        <script src = "../Javascript/p5.js"></script>
+        
+    </head>
+    <body>
+        <header>
+            <h1> Reviews</h1>
+            <h2>log:
+            </h2>
+             <div id="my-log"></div>
+            <hr>
+        </header>
+        <nav>
+            <a href = "../index.html">Home</a>
+    
+        </nav>
+        <main>
+
+            <div id = "my-display"></div>
+            
+            <!-- Control Panel -->
+            <aside>
+                <h3>Character</h3>
+                <caption> A description of this character.</caption>
+                <br>
+                <hr>
+
+                <button id="my-lights-on">lights on</button>
+                <button id = "my-lights-off">lights off</button>
+               
+            </aside>
+
+        </main>
+        <footer>
+
+        </footer>
+         <script>
+            let amt = 1;
+            let myLog = document.getElementById('my-log');
+            let log = (value) => {
+                
+
+                myLog.innerHTML = value;
+            }
+            
+            let shape;
+
+            function preload() {
+                shape = loadModel('../Assets/Asset 2.obj', true)
+            }
+
+            function setup() {
+             let myDisplay = document.getElementById('my-display')
+             let displayWidth = myDisplay.clientWidth;
+             let displayHeight = myDisplay.clientHeight;
+
+             console.log()
+
+             let myCanvas = createCanvas(displayWidth, displayHeight, WEBGL);
+
+             myCanvas.parent('my-display');
+            }
+            function draw() {
+                background(100);
+                noStroke()
+
+                controls()
+
+               
+
+
+
+
+                orbitControl();
+                let zAxis = createVector(0, 0, 1);
+                rotate(PI, zAxis)
+                let yAxis = createVector(0, 1, 0);
+                rotate(amt, yAxis)
+                
+                model(shape)
+
+                amt +=.01;
+
+               
+
+            }
+
+            let myLightsOn = document.getElementById('my-lights-on');
+            let lightsOn = false;
+             myLightsOn.addEventListener('click',
+             () => {
+                lightsOn = true ;
+             })
+             let myLightsOff = document.getElementById('my-lights-off')
+             myLightsOff.addEventListener('click',
+             () => {
+              lightsOn = false;
+                }
+             )
+             
+                   
+                
+
+            function controls() {
+
+                if (lightsOn == true) {
+                    pointLight(255, 255, 255, 30, -40, 30)
+                }
+              
+                   
+                 
+            }
+            
+        
+        </script>
+        <style>
+            #my-display {
+                width: 200px;
+                height: 200px; 
+               background-color: bisque;
+               
+               border: 2px solid black;
+            
+    
+            }
+            .p5Canvas {
+                /* needed to contain the sketch within parent element. */
+                position:absolute
+            }
+        </style>
+    </body>
+   
+    
+</html>
+
